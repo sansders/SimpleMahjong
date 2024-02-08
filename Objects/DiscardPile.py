@@ -2,8 +2,8 @@
 class DiscardPile:
     
     # Constructor method to initialize the object
-    def __init__(self, tiles):
-        self.tiles = tiles
+    def __init__(self):
+        self.tiles = []
 
     def discardTile(self, tile):
         self.tiles.append(tile)

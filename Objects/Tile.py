@@ -2,12 +2,18 @@
 class Tile:
     
     # Constructor method to initialize the object
-    def __init__(self, suit, number, dragon, wind, tileId):
+    def __init__(self, suit, number, dragon, wind):
+
+        # Initialize dictionaries to store properties
+        self.suit = [0, 0, 0, 0]
+        self.number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.dragon = [0, 0, 0, 0]
+        self.wind = [0, 0, 0, 0, 0]
+
         self.suit[suit] = 1
         self.number[number] = 1
         self.dragon[dragon] = 1
         self.wind[wind] = 1
-        self.tileId = tileId
 
     def getTileSuit(self):
         for x in range(4):
@@ -28,7 +34,5 @@ class Tile:
         for x in range(5):
             if self.wind[x] == 1:
                 return x
-            
-    def getTileId(self):
-        return self.tileId
+
 

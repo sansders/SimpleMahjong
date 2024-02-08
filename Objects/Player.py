@@ -20,8 +20,8 @@ class Player:
     def viewHand(self):
         print(self.hand)
 
-    def draw(self):
-        pass
+    def draw(self, drawPile):
+        self.hand.append(drawPile.draw())
 
     def checkSelfDrawWin(self):
         pass
