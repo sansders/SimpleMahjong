@@ -29,7 +29,6 @@ def initializePlayers():
     player4 = Player(4, [], [])
     
     playerList = [player1, player2, player3, player4]
-
     print("Players initialized")
     
     return playerList
@@ -51,13 +50,12 @@ def initializeRound(gameState, players):
         for player in range(4):
             for tiles in range(4):
                 players[gameState.order[player]-1].draw(drawPile)
+    
+    for player in range(4):
+        players[gameState.order[player]-1].draw(drawPile)
 
     print("Tiles left in draw pile:", len(drawPile.tiles))
     print("Tiles in dead wall: ", len(deadWall.tiles))
-    print("Number of tiles (Player 1):", len(players[0].hand))
-    print("Number of tiles (Player 2):", len(players[1].hand))
-    print("Number of tiles (Player 3):", len(players[2].hand))
-    print("Number of tiles (Player 4):", len(players[3].hand))
 
     gameState.players = players
     gameState.drawPile = drawPile
@@ -72,44 +70,44 @@ def initializeTiles():
 
     for _ in range(4):
 
-        redDragon = Tile(0, 0, 1, 0)
-        greenDragon = Tile(0, 0, 2, 0)
-        whiteDragon = Tile(0, 0, 3, 0)
+        redDragon = Tile(0, 0, 1, 0, "Red")
+        greenDragon = Tile(0, 0, 2, 0, "Green")
+        whiteDragon = Tile(0, 0, 3, 0, "White")
 
-        east = Tile(0, 0, 0, 1)
-        south = Tile(0, 0, 0, 2)
-        west = Tile(0, 0, 0, 3)
-        north = Tile(0, 0, 0, 4)
+        east = Tile(0, 0, 0, 1, "East")
+        south = Tile(0, 0, 0, 2, "South")
+        west = Tile(0, 0, 0, 3, "West")
+        north = Tile(0, 0, 0, 4, "North")
         
-        oneDot = Tile(1, 1, 0, 0)
-        twoDot = Tile(1, 2, 0, 0)
-        threeDot = Tile(1, 3, 0, 0)
-        fourDot = Tile(1, 4, 0, 0)
-        fiveDot = Tile(1, 5, 0, 0)
-        sixDot = Tile(1, 6, 0, 0)
-        sevenDot = Tile(1, 7, 0, 0)
-        eightDot = Tile(1, 8, 0, 0)
-        nineDot = Tile(1, 9, 0, 0)
+        oneDot = Tile(1, 1, 0, 0, "1Dot")
+        twoDot = Tile(1, 2, 0, 0, "2Dot")
+        threeDot = Tile(1, 3, 0, 0, "3Dot")
+        fourDot = Tile(1, 4, 0, 0, "4Dot")
+        fiveDot = Tile(1, 5, 0, 0, "5Dot")
+        sixDot = Tile(1, 6, 0, 0, "6Dot")
+        sevenDot = Tile(1, 7, 0, 0, "7Dot")
+        eightDot = Tile(1, 8, 0, 0, "8Dot")
+        nineDot = Tile(1, 9, 0, 0, "9Dot")
 
-        oneBamb = Tile(2, 1, 0, 0)
-        twoBamb = Tile(2, 2, 0, 0)
-        threeBamb = Tile(2, 3, 0, 0)
-        fourBamb = Tile(2, 4, 0, 0)
-        fiveBamb = Tile(2, 5, 0, 0)
-        sixBamb = Tile(2, 6, 0, 0)
-        sevenBamb = Tile(2, 7, 0, 0)
-        eightBamb = Tile(2, 8, 0, 0)
-        nineBamb = Tile(2, 9, 0, 0)
+        oneBam = Tile(2, 1, 0, 0, "1Bam")
+        twoBam = Tile(2, 2, 0, 0, "2Bam")
+        threeBam = Tile(2, 3, 0, 0, "3Bam")
+        fourBam = Tile(2, 4, 0, 0, "4Bam")
+        fiveBam = Tile(2, 5, 0, 0, "5Bam")
+        sixBam = Tile(2, 6, 0, 0, "6Bam")
+        sevenBam = Tile(2, 7, 0, 0, "7Bam")
+        eightBam = Tile(2, 8, 0, 0, "8Bam")
+        nineBam = Tile(2, 9, 0, 0, "9Bam")
 
-        oneChara = Tile(3, 1, 0, 0)
-        twoChara = Tile(3, 2, 0, 0)
-        threeChara = Tile(3, 3, 0, 0)
-        fourChara = Tile(3, 4, 0, 0)
-        fiveChara = Tile(3, 5, 0, 0)
-        sixChara = Tile(3, 6, 0, 0)
-        sevenChara = Tile(3, 7, 0, 0)
-        eightChara = Tile(3, 8, 0, 0)
-        nineChara = Tile(3, 9, 0, 0)
+        oneCha = Tile(3, 1, 0, 0, "1Cha")
+        twoCha = Tile(3, 2, 0, 0, "2Cha")
+        threeCha = Tile(3, 3, 0, 0, "3Cha")
+        fourCha = Tile(3, 4, 0, 0, "4Cha")
+        fiveCha = Tile(3, 5, 0, 0, "5Cha")
+        sixCha = Tile(3, 6, 0, 0, "6Cha")
+        sevenCha = Tile(3, 7, 0, 0, "7Cha")
+        eightCha = Tile(3, 8, 0, 0, "8Cha")
+        nineCha = Tile(3, 9, 0, 0, "9Cha")
 
         tiles.append(redDragon)
         tiles.append(greenDragon)
@@ -130,25 +128,25 @@ def initializeTiles():
         tiles.append(eightDot)
         tiles.append(nineDot)
 
-        tiles.append(oneBamb)
-        tiles.append(twoBamb)
-        tiles.append(threeBamb)
-        tiles.append(fourBamb)
-        tiles.append(fiveBamb)
-        tiles.append(sixBamb)
-        tiles.append(sevenBamb)
-        tiles.append(eightBamb)
-        tiles.append(nineBamb)
+        tiles.append(oneBam)
+        tiles.append(twoBam)
+        tiles.append(threeBam)
+        tiles.append(fourBam)
+        tiles.append(fiveBam)
+        tiles.append(sixBam)
+        tiles.append(sevenBam)
+        tiles.append(eightBam)
+        tiles.append(nineBam)
 
-        tiles.append(oneChara)
-        tiles.append(twoChara)
-        tiles.append(threeChara)
-        tiles.append(fourChara)
-        tiles.append(fiveChara)
-        tiles.append(sixChara)
-        tiles.append(sevenChara)
-        tiles.append(eightChara)
-        tiles.append(nineChara)
+        tiles.append(oneCha)
+        tiles.append(twoCha)
+        tiles.append(threeCha)
+        tiles.append(fourCha)
+        tiles.append(fiveCha)
+        tiles.append(sixCha)
+        tiles.append(sevenCha)
+        tiles.append(eightCha)
+        tiles.append(nineCha)
 
     return tiles
 
