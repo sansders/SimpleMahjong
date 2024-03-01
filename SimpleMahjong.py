@@ -157,12 +157,51 @@ def initializeTiles():
 
     return tiles
 
+def playerMove(gameState):
+    while True:
+        # Get user input
+        userInput = input()
+
+        # View opened tiles
+        if (userInput == 'a'):
+            pass
+
+        # View hand
+        elif (userInput == 'v'):
+            gameState.players[gameState.currentPlayer-1].viewHand()
+
+        # View discard pile
+        elif (userInput == '0'):
+            print("Discard pile: ")
+            print(gameState.discardPile.checkDiscardPile())
+
+        # Discard a tile
+        elif (userInput.isnumeric() and int(userInput) > 0 and int(userInput) <= len(gameState.players[gameState.currentPlayer-1].hand)):
+            
+            userInput = int(userInput) - 1
+            print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[userInput].getTileName()))
+            gameState.discard(userInput)
+            
+            # Increment turn counter
+            gameState.currentTurn += 1
+            return
+
+        else:
+            print("Invalid option. Please enter a valid move.")
+
+def cpuMove(gameState):
+    cpuInput = randint(0, 13)
+    print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[cpuInput].getTileName()))
+    gameState.discard(cpuInput)
+    
+    # Increment turn counter
+    gameState.currentTurn += 1
+
 # Insert game logic here
 def play(gameState):
 
     print("Enter 0 to view discard pile,")
     print("Enter 'a' to view all players' opened tiles.")
-    print("Enter 'b' to check current turn number.")
     print("Enter 'v' to view your hand.")
     print("Enter a valid tile index in your hand to discard it.\nThe first tile to the left has an index of 1.\n")
 
@@ -176,45 +215,11 @@ def play(gameState):
         
         # Make decision if it is player 1's turn
         if gameState.currentPlayer == 1:
-            
-            while True:
-                userInput = input()
-
-                if (userInput == 'a'):
-                    pass
-
-                elif (userInput == 'b'):
-                    print("Current turn number: " + str(gameState.currentTurn))
-
-                elif (userInput == 'v'):
-                    gameState.players[gameState.currentPlayer-1].viewHand()
-
-                elif (userInput == '0'):
-                    print("Discard pile: ")
-                    print(gameState.discardPile.checkDiscardPile())
-                
-                # Discard a tile
-                elif (userInput.isnumeric() and int(userInput) > 0 and int(userInput) <= len(gameState.players[gameState.currentPlayer-1].hand)):
-                    
-                    userInput = int(userInput) - 1
-                    print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[userInput].getTileName()))
-                    gameState.discard(userInput)
-                    
-                    break
-
-                else:
-                    print("Invalid option. Please enter a valid move.")
-
+            playerMove(gameState)
 
         # Else, let CPU play
         else:
-            cpuInput = randint(0, 13)
-            print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[cpuInput].getTileName()))
-            gameState.discard(cpuInput)
-
-        # Increment turn counter
-        gameState.currentTurn += 1
-
+            cpuMove(gameState)
 
 if __name__=="__main__": 
     main() 
