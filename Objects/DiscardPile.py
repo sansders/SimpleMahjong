@@ -9,5 +9,8 @@ class DiscardPile:
         self.tiles.append(tile)
 
     def checkDiscardPile(self):
-        return self.tiles
+        discardedTileNames = []
+        for tile in self.tiles:
+            discardedTileNames.append(tile.getTileName())
+        return discardedTileNames
 

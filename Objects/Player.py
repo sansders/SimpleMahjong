@@ -6,7 +6,9 @@ class Player:
         self.playerId = playerId
         self.hand = hand
         self.opened = opened
-        self.closed = []
+
+    def discard(self, tileIndex):
+        return self.hand.pop(tileIndex)
 
     def chi(self, tile1, tile2, tile3):
         pass
@@ -19,7 +21,7 @@ class Player:
 
     def viewHand(self):
         self.sort_hand()
-        print("Player %d tiles: " % self.playerId, end="")
+        print("\nPlayer %d tiles: " % self.playerId, end="")
         for tile in self.hand:
             print(tile.name, end=" ")
         print("")
@@ -52,4 +54,6 @@ class Player:
         # Sort the hand based on the custom order
         self.hand.sort(key=lambda tile: tile_order.index(tile.getTileName()))
     
+    def discardRandom(self):
+        return self.hand.pop()
 

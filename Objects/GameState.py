@@ -36,8 +36,6 @@ class GameState:
         # Sets the discard pile
         self.discardPile = None
 
-
-    
     # Used at the start of Mahjong to determine who goes first
     def rollDice(self):
         while (not self.diceRolls or len(list(set(self.diceRolls))) < 4):
@@ -84,10 +82,6 @@ class GameState:
     def checkCurrentPlayer(self):
         pass
 
-    # Used at the start of the game to draw tiles for each player
-    def startGameDraw(self):
-        pass
-
     # Used to check the board for all the opened tiles, and to which player they belong to
     def checkOpenedTiles(self):
         pass
@@ -103,3 +97,6 @@ class GameState:
     # Sets the order of play, draw pile, and each players' hands
     def initialiseRound(self):
         pass
+
+    def discard(self, userInput):
+        self.discardPile.discardTile(self.players[self.currentPlayer-1].discard(userInput))
