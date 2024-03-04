@@ -1,3 +1,5 @@
+from collections import Counter
+
 # Define a class named 'Player'
 class Player:
     
@@ -13,9 +15,20 @@ class Player:
     def chi(self, tile1, tile2, tile3):
         pass
 
-    def pong(self, tile1, tile2, tile3):
-        pass
+    def pong(self, discardedTile):
+        pongedTiles = [discardedTile]
 
+        for index in range(len(self.hand) - 1):
+            if self.hand[index].name == discardedTile.name:
+                pongedTiles.append(self.hand.pop(index))
+                pongedTiles.append(self.hand.pop(index))
+                break
+
+        for tile in pongedTiles:
+            self.opened.append(tile)
+
+        return True
+        
     def win(self, tiles):
         pass
 
@@ -38,8 +51,24 @@ class Player:
     def checkChi(self, tile):
         pass
 
-    def checkPong(self, tile):
-        pass
+    def checkPong(self, discardedTile):
+        
+        namesOfTilesInHand = []
+
+        for tile in self.hand:
+            namesOfTilesInHand.append(tile.name)
+
+        numOfEachTile = Counter(namesOfTilesInHand)
+
+        if (numOfEachTile[discardedTile.name] == 2):
+            
+            print("Pong possible! Would you like to pong? Enter y/n: ")
+            userInput = input()
+            
+            if userInput == "Y" or userInput == "y":
+                return self.pong(discardedTile)
+            else:
+                return False
 
     def sort_hand(self):
         # Define the custom order of tiles
@@ -53,7 +82,5 @@ class Player:
 
         # Sort the hand based on the custom order
         self.hand.sort(key=lambda tile: tile_order.index(tile.getTileName()))
-    
-    def discardRandom(self):
-        return self.hand.pop()
+
 

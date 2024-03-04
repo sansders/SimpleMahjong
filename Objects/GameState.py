@@ -36,6 +36,9 @@ class GameState:
         # Sets the discard pile
         self.discardPile = None
 
+        # Default value is 0, it is set to 1 only if chi or pong is called
+        self.interrupted = 0
+
     # Used at the start of Mahjong to determine who goes first
     def rollDice(self):
         while (not self.diceRolls or len(list(set(self.diceRolls))) < 4):
@@ -76,11 +79,7 @@ class GameState:
 
     # Check which turn it is now
     def checkCurrentTurn(self):
-        pass
-
-    # Check which player's turn is it
-    def checkCurrentPlayer(self):
-        pass
+        return self.currentTurn
 
     # Used to check the board for all the opened tiles, and to which player they belong to
     def checkOpenedTiles(self):
@@ -100,3 +99,23 @@ class GameState:
 
     def discard(self, userInput):
         self.discardPile.discardTile(self.players[self.currentPlayer-1].discard(userInput))
+
+    def checkPong(self, playerId, discardedTile):
+        
+        player = self.players[playerId-1]
+        
+        if player.checkPong(discardedTile) == True:
+            self.interrupted = 1
+            self.discardPile.take()
+        
+            while self.order[self.currentTurn % 4] != playerId:
+                self.currentTurn += 1
+            
+    def printOpenedTiles(self):
+        playerId = 1
+        for player in self.players:
+            if player.opened != []:
+                print("\nPlayer %d's opened tiles: " % playerId, end="")
+                for tile in player.opened:
+                    print(tile.name, end=" ")
+            playerId += 1

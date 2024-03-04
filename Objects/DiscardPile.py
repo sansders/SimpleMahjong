@@ -8,9 +8,10 @@ class DiscardPile:
     def discardTile(self, tile):
         self.tiles.append(tile)
 
-    def checkDiscardPile(self):
-        discardedTileNames = []
+    def printDiscardPile(self):
+        print("\nDiscard pile: ", end="")
         for tile in self.tiles:
-            discardedTileNames.append(tile.getTileName())
-        return discardedTileNames
-
+                print(tile.name, end=" ")
+    
+    def take(self):
+        self.tiles.pop()
