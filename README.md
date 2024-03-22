@@ -28,22 +28,14 @@ I will list the points in 3 main groups:
 2. A meld can either comprise of:
     - A correctly-ordered sequence of 3 tiles of the same suit.
     - A set of 3 of the same tiles.
-3. These sets may either be: 
-    - Opened (due to calling "Chi" or "Pong").
-    - Closed (unknown to the other 3 players).
-4. The pair must be two of the same tiles.
-5. The winning tile can either be self-drawn or taken from any other player's discards.
-6. If more than one player wins on a discarded tile at the same time, only the player to the right of the player who discarded the winning tile gets the win.
+3. The pair must be two of the same tiles.
+4. The winning tile can either be self-drawn or taken from any other player's discards.
+5. If more than one player wins on a discarded tile at the same time, only the player to the right of the player who discarded the winning tile gets the win.
 
 ### Gameplay
 
 1. On a player's turn, they must draw one tile from the draw pile.
 2. The player must discard one tile from their hand to end their turn.
 3. The turn ends and the next player on the right may draw a tile from the draw pile.
-4. However, another player may interrupt this flow and call "Chi" or "Pong" to take the previous player's discarded tile. When this happens, the player who called and took the tile must discard one tile. The interrupt ends and the next player on the right of the caller may draw a tile from the draw pile, or call "Chi" or "Pong" themselves, if they can.
-5. A player may only "**Chi**" from a player to their left. To "Chi" means to take the latest discarded tile of the player to the left, to make a sequence of **3 tiles of the same suit**.
-6. A player may "**Pong**" from any player who discards a tile. To "Pong" means to take the latest discarded tile to make a set of **3 of the same tiles**.
-7. When two players call "Chi" and "Pong" at the same time, the player who called "Pong" will get the discarded tile over the "Chi" caller.
-8. When "Chi" or "Pong" is called, the caller must show the other players the sequence of tiles or triplets that are formed.
-9. This goes on until either there are no more tiles in the draw pile, or if a player reaches the winning condition.
-10. To clarify, there will be no "Kong" in this version.
+4. This goes on until either there are no more tiles in the draw pile, or if a player reaches the winning condition.
+5. To clarify, there will be no "Chi", "Pong", or "Kong" in this version of Mahjong.

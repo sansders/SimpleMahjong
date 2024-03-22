@@ -77,6 +77,10 @@ class GameState:
     def checkWins(self):
         pass
 
+    # Check number of wins player has
+    def checkWinPlayer(self, playerId):
+        pass
+
     # Check which turn it is now
     def checkCurrentTurn(self):
         return self.currentTurn
@@ -111,6 +115,17 @@ class GameState:
             while self.order[self.currentTurn % 4] != playerId:
                 self.currentTurn += 1
             
+    def checkMelds(self, playerId):
+
+        player = self.players[playerId-1]
+
+        maxMelds = 0
+
+        # Check sequences, then triplets
+        
+
+        # Check triplets, then sequences
+
     def printOpenedTiles(self):
         playerId = 1
         for player in self.players:
