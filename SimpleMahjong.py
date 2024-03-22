@@ -160,24 +160,15 @@ def initializeTiles():
 def playerMove(gameState):
     while True:
 
-        # View hand
+        # View hand and board
+        gameState.discardPile.printDiscardPile()
         gameState.players[gameState.currentPlayer-1].viewHand()
 
         # Get user input
         userInput = input()
 
-        # View opened tiles
-        if (userInput == 'a'):
-            pass
-
-        # View discard pile and opened tiles
-        elif (userInput == '0'):
-            gameState.discardPile.printDiscardPile()
-            gameState.printOpenedTiles()
-
         # Discard a tile
-        elif (userInput.isnumeric() and int(userInput) > 0 and int(userInput) <= len(gameState.players[gameState.currentPlayer-1].hand)):
-            
+        if (userInput.isnumeric() and int(userInput) > 0 and int(userInput) <= len(gameState.players[gameState.currentPlayer-1].hand)):
             userInput = int(userInput) - 1
             print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[userInput].getTileName()))
             gameState.discard(userInput)
@@ -200,8 +191,6 @@ def cpuMove(gameState):
 # Insert game logic here
 def play(gameState):
 
-    print("Enter 0 to view discard pile,")
-    print("Enter 'a' to view all players' opened tiles.")
     print("Enter a valid tile index in your hand to discard it.\nThe first tile to the left has an index of 1.\n")
 
     while True:
@@ -209,11 +198,11 @@ def play(gameState):
         # Set current player to the ID of the current player
         gameState.currentPlayer = gameState.order[gameState.currentTurn % 4]
 
-        # Current player to draw, only if chi or pong was not called the turn before
-        if (gameState.interrupted == 0):
-            gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
-        else:
-            gameState.interrupted = 0
+        # # Current player to draw, only if chi or pong was not called the turn before
+        # if (gameState.interrupted == 0):
+        #     gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
+        # else:
+        #     gameState.interrupted = 0
         
         # Make decision if it is player 1's turn
         if gameState.currentPlayer == 1:
@@ -223,9 +212,9 @@ def play(gameState):
         else:
             cpuMove(gameState)
             
-            # After a CPU discarded a tile, check for calls
-            # For now, only player 1 will check for calls
-            gameState.checkPong(1, gameState.discardPile.tiles[-1])
+            # # After a CPU discarded a tile, check for calls
+            # # For now, only player 1 will check for calls
+            # gameState.checkPong(1, gameState.discardPile.tiles[-1])
 
 
 if __name__=="__main__": 
