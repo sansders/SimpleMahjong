@@ -4,10 +4,9 @@ from collections import Counter
 class Player:
     
     # Constructor method to initialize the object
-    def __init__(self, playerId, hand, opened):
+    def __init__(self, playerId, hand):
         self.playerId = playerId
         self.hand = hand
-        self.opened = opened
 
     def discard(self, tileIndex):
         return self.hand.pop(tileIndex)
@@ -34,7 +33,7 @@ class Player:
 
     def viewHand(self):
         self.sort_hand()
-        print("\nPlayer %d tiles: " % self.playerId, end="")
+        print("Player %d tiles: " % self.playerId, end="")
         for tile in self.hand:
             print(tile.name, end=" ")
         print("")

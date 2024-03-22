@@ -24,10 +24,10 @@ def initializeGame():
     return round
 
 def initializePlayers():        
-    player1 = Player(1, [], [])
-    player2 = Player(2, [], [])
-    player3 = Player(3, [], [])
-    player4 = Player(4, [], [])
+    player1 = Player(1, [])
+    player2 = Player(2, [])
+    player3 = Player(3, [])
+    player4 = Player(4, [])
     
     playerList = [player1, player2, player3, player4]
     print("Players initialized")
@@ -160,8 +160,9 @@ def initializeTiles():
 def playerMove(gameState):
     while True:
 
-        # View hand and board
+        # View board, get melds and pairs, and view hand
         gameState.discardPile.printDiscardPile()
+        melds, pairs = gameState.checkMelds(gameState.currentPlayer)
         gameState.players[gameState.currentPlayer-1].viewHand()
 
         # Get user input
@@ -197,6 +198,9 @@ def play(gameState):
 
         # Set current player to the ID of the current player
         gameState.currentPlayer = gameState.order[gameState.currentTurn % 4]
+        
+        # Current player to draw
+        gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
 
         # # Current player to draw, only if chi or pong was not called the turn before
         # if (gameState.interrupted == 0):
