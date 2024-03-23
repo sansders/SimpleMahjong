@@ -162,8 +162,14 @@ def playerMove(gameState):
 
         # View board, get melds and pairs, and view hand
         gameState.discardPile.printDiscardPile()
-        melds, pairs = gameState.checkMelds(gameState.currentPlayer)
+        melds, pairs = gameState.players[gameState.currentPlayer-1].checkMelds(1)
         gameState.players[gameState.currentPlayer-1].viewHand()
+
+        # Check if win condition is met after drawing
+        isWin = gameState.players[gameState.currentPlayer-1].checkSelfDrawnWin(melds, pairs)
+        if isWin:
+            print("You Win!")
+            gameState.players[gameState.currentPlayer-1].wins += 1
 
         # Get user input
         userInput = input()
@@ -182,6 +188,13 @@ def playerMove(gameState):
             print("Invalid option. Please enter a valid move.")
 
 def cpuMove(gameState):
+
+    # Check melds
+    melds, pairs = gameState.players[gameState.currentPlayer-1].checkMelds(False)
+
+    # # Check if win condition is met
+    # gameState.players[gameState.currentPlayer-1]
+
     cpuInput = randint(0, 13)
     print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[cpuInput].getTileName()))
     gameState.discard(cpuInput)
