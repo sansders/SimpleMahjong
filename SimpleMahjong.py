@@ -209,7 +209,7 @@ def play(gameState):
         
         # If draw pile is empty, go to next round. Else, player draws
         if not gameState.drawPile.tiles:
-            print("Exhaustive draw.\n")
+            print("Exhaustive draw!\n")
             gameState.nextRound()
             initializeRound(gameState, gameState.players)
             continue

@@ -134,7 +134,7 @@ class GameState:
         isWin = self.players[self.currentPlayer-1].checkSelfDrawnWin(melds, pairs)
         
         if isWin:
-            print("Player %d tsumo!" % self.players[self.currentPlayer-1].playerId)
+            print("Player %d wins!" % self.players[self.currentPlayer-1].playerId)
             self.players[self.currentPlayer-1].viewHand()
             self.players[self.currentPlayer-1].wins += 1
             print("")
@@ -164,7 +164,7 @@ class GameState:
 
         melds1, pair1 = player1.checkMelds(0)
         if melds1 == 4 and pair1 == 1:
-            print("Player%d wins!" % player1.playerId)
+            print("Player %d wins!" % player1.playerId)
             player1.wins += 1
 
             player1.viewHand()
@@ -179,7 +179,7 @@ class GameState:
 
         melds2, pair2 = player2.checkMelds(0)
         if melds2 == 4 and pair2 == 1:
-            print("Player%d wins!" % player2.playerId)
+            print("Player %d wins!" % player2.playerId)
             player2.wins += 1
 
             player2.viewHand()
@@ -194,7 +194,7 @@ class GameState:
 
         melds3, pair3 = player3.checkMelds(0)
         if melds3 == 4 and pair3 == 1:
-            print("Player%d wins!" % player3.playerId)
+            print("Player %d wins!" % player3.playerId)
             player3.wins += 1
 
             player3.viewHand()
