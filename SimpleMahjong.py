@@ -188,12 +188,6 @@ def playerMove(gameState):
 
 def cpuMove(gameState):
 
-    # Check melds
-    melds, pairs = gameState.players[gameState.currentPlayer-1].checkMelds(False)
-
-    # # Check if win condition is met
-    # gameState.players[gameState.currentPlayer-1]
-
     cpuInput = randint(0, 13)
     print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[cpuInput].getTileName()))
     discardedTile = gameState.discard(cpuInput)
@@ -213,8 +207,15 @@ def play(gameState):
         # Set current player to the ID of the current player
         gameState.currentPlayer = gameState.order[gameState.currentTurn % 4]
         
-        # Current player to draw
-        gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
+        # If draw pile is empty, go to next round. Else, player draws
+        if not gameState.drawPile.tiles:
+            print("Exhaustive draw.\n")
+            gameState.nextRound()
+            initializeRound(gameState, gameState.players)
+            continue
+        else:
+            # Current player to draw
+            gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
 
         # Check if tsumo
         if gameState.tsumo():
@@ -242,4 +243,3 @@ if __name__=="__main__":
 
 ## TODO:
 ## Implement increment score counter and show score after win
-## Implement exhaustive draw

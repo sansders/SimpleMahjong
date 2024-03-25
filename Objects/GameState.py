@@ -103,6 +103,7 @@ class GameState:
         pass
 
     def nextRound(self):
+        self.currentTurn = 0
         self.setOrderSubsequentRounds()
 
     def discard(self, userInput):
@@ -136,6 +137,7 @@ class GameState:
             print("Player %d tsumo!" % self.players[self.currentPlayer-1].playerId)
             self.players[self.currentPlayer-1].viewHand()
             self.players[self.currentPlayer-1].wins += 1
+            print("")
             return True
         
         return False
@@ -165,9 +167,14 @@ class GameState:
             print("Player%d wins!" % player1.playerId)
             player1.wins += 1
 
+            player1.viewHand()
+
             player1.hand = savedPlayer1Hand
             player2.hand = savedPlayer2Hand
             player3.hand = savedPlayer3Hand
+            
+            print("")
+
             return player1
 
         melds2, pair2 = player2.checkMelds(0)
@@ -175,9 +182,14 @@ class GameState:
             print("Player%d wins!" % player2.playerId)
             player2.wins += 1
 
+            player2.viewHand()
+
             player1.hand = savedPlayer1Hand
             player2.hand = savedPlayer2Hand
             player3.hand = savedPlayer3Hand
+
+            print("")
+
             return player2
 
         melds3, pair3 = player3.checkMelds(0)
@@ -185,9 +197,14 @@ class GameState:
             print("Player%d wins!" % player3.playerId)
             player3.wins += 1
 
+            player3.viewHand()
+
             player1.hand = savedPlayer1Hand
             player2.hand = savedPlayer2Hand
             player3.hand = savedPlayer3Hand
+
+            print("")
+
             return player3
 
         # Put back the old hands
