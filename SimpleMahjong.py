@@ -7,7 +7,6 @@ from Objects.DeadWall import DeadWall
 from random import randint
 
 def main(): 
-    print("Begin:") 
     mahjong = initializeGame()
     print("Game initialized.\nTime to play mahjong!\n")
     play(mahjong)
@@ -60,18 +59,10 @@ def initializeRound(gameState, players):
         players[gameState.order[player]-1].draw(drawPile)
         players[gameState.order[player]-1].sort_hand()
 
-    print("Tiles left in draw pile:", len(drawPile.tiles))
-    print("Tiles in dead wall: ", len(deadWall.tiles))
-
     gameState.players = players
     gameState.drawPile = drawPile
     gameState.deadWall = deadWall
     gameState.discardPile = discardPile
-
-    # players[0].viewHand()
-    # players[1].viewHand()
-    # players[2].viewHand()
-    # players[3].viewHand()
 
     return gameState
 
