@@ -7,6 +7,7 @@ class DiscardPile:
 
     def discardTile(self, tile):
         self.tiles.append(tile)
+        return tile
 
     def printDiscardPile(self):
         print("\nDiscard pile: ", end="")

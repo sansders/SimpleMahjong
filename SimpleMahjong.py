@@ -46,6 +46,10 @@ def initializeRound(gameState, players):
     discardPile = DiscardPile()
     print("Discard Pile initialized")
 
+    # Ensure hands are empty
+    for player in range(4):
+        players[gameState.order[player]-1].hand = []
+
     # Draws at the start of the round
     for drawRounds in range(3):
         for player in range(4):
@@ -165,12 +169,6 @@ def playerMove(gameState):
         melds, pairs = gameState.players[gameState.currentPlayer-1].checkMelds(1)
         gameState.players[gameState.currentPlayer-1].viewHand()
 
-        # Check if win condition is met after drawing
-        isWin = gameState.players[gameState.currentPlayer-1].checkSelfDrawnWin(melds, pairs)
-        if isWin:
-            print("You Win!")
-            gameState.players[gameState.currentPlayer-1].wins += 1
-
         # Get user input
         userInput = input()
 
@@ -178,11 +176,12 @@ def playerMove(gameState):
         if (userInput.isnumeric() and int(userInput) > 0 and int(userInput) <= len(gameState.players[gameState.currentPlayer-1].hand)):
             userInput = int(userInput) - 1
             print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[userInput].getTileName()))
-            gameState.discard(userInput)
+            discardedTile = gameState.discard(userInput)
             
             # Increment turn counter
             gameState.currentTurn += 1
-            return
+
+            return discardedTile
 
         else:
             print("Invalid option. Please enter a valid move.")
@@ -197,10 +196,12 @@ def cpuMove(gameState):
 
     cpuInput = randint(0, 13)
     print("Player %d discarded %s" % (gameState.currentPlayer, gameState.players[gameState.currentPlayer-1].hand[cpuInput].getTileName()))
-    gameState.discard(cpuInput)
+    discardedTile = gameState.discard(cpuInput)
     
     # Increment turn counter
     gameState.currentTurn += 1
+
+    return discardedTile
 
 # Insert game logic here
 def play(gameState):
@@ -215,24 +216,30 @@ def play(gameState):
         # Current player to draw
         gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
 
-        # # Current player to draw, only if chi or pong was not called the turn before
-        # if (gameState.interrupted == 0):
-        #     gameState.players[gameState.currentPlayer-1].draw(gameState.drawPile)
-        # else:
-        #     gameState.interrupted = 0
+        # Check if tsumo
+        if gameState.tsumo():
+            gameState.nextRound()
+            initializeRound(gameState, gameState.players)
+            continue
         
         # Make decision if it is player 1's turn
         if gameState.currentPlayer == 1:
-            playerMove(gameState)
+            discardedTile = playerMove(gameState)
 
         # Else, let CPU play
         else:
-            cpuMove(gameState)
-            
-            # # After a CPU discarded a tile, check for calls
-            # # For now, only player 1 will check for calls
-            # gameState.checkPong(1, gameState.discardPile.tiles[-1])
+            discardedTile = cpuMove(gameState)
+
+        # Check if any other player wins on that discard
+        if gameState.checkIfWin(discardedTile) != False:
+            gameState.nextRound()
+            initializeRound(gameState, gameState.players)
+            continue
 
 
 if __name__=="__main__": 
     main() 
+
+## TODO:
+## Implement increment score counter and show score after win
+## Implement exhaustive draw

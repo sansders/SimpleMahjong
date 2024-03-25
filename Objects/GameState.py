@@ -71,7 +71,8 @@ class GameState:
 
     # Used at the start of subsequent rounds to change the player order 
     def setOrderSubsequentRounds(self):
-        pass
+        self.order.append(self.order.pop(0))
+        print("Order of player ID:", self.order)
 
     # Check number of wins each player has
     def checkWins(self):
@@ -101,8 +102,11 @@ class GameState:
     def initialiseRound(self):
         pass
 
+    def nextRound(self):
+        self.setOrderSubsequentRounds()
+
     def discard(self, userInput):
-        self.discardPile.discardTile(self.players[self.currentPlayer-1].discard(userInput))
+        return self.discardPile.discardTile(self.players[self.currentPlayer-1].discard(userInput))
 
     def checkPong(self, playerId, discardedTile):
         
@@ -123,3 +127,72 @@ class GameState:
                 for tile in player.opened:
                     print(tile.name, end=" ")
             playerId += 1
+
+    def tsumo(self):
+        melds, pairs = self.players[self.currentPlayer-1].checkMelds(0)
+        isWin = self.players[self.currentPlayer-1].checkSelfDrawnWin(melds, pairs)
+        
+        if isWin:
+            print("Player %d tsumo!" % self.players[self.currentPlayer-1].playerId)
+            self.players[self.currentPlayer-1].viewHand()
+            self.players[self.currentPlayer-1].wins += 1
+            return True
+        
+        return False
+
+    def checkIfWin(self, discardedTile):
+
+        player1 = self.players[self.order[(self.currentTurn + 1) % 4] - 1]
+        player2 = self.players[self.order[(self.currentTurn + 2) % 4] - 1]
+        player3 = self.players[self.order[(self.currentTurn + 3) % 4] - 1]
+
+        # Save old instances of hand
+        savedPlayer1Hand = player1.hand.copy()
+        savedPlayer2Hand = player2.hand.copy()
+        savedPlayer3Hand = player3.hand.copy()
+
+        # Temporarily append the discarded tile to each players' hands
+        player1.hand.append(discardedTile)
+        player2.hand.append(discardedTile)
+        player3.hand.append(discardedTile)
+
+        player1.sort_hand()
+        player2.sort_hand()
+        player3.sort_hand()
+
+        melds1, pair1 = player1.checkMelds(0)
+        if melds1 == 4 and pair1 == 1:
+            print("Player%d wins!" % player1.playerId)
+            player1.wins += 1
+
+            player1.hand = savedPlayer1Hand
+            player2.hand = savedPlayer2Hand
+            player3.hand = savedPlayer3Hand
+            return player1
+
+        melds2, pair2 = player2.checkMelds(0)
+        if melds2 == 4 and pair2 == 1:
+            print("Player%d wins!" % player2.playerId)
+            player2.wins += 1
+
+            player1.hand = savedPlayer1Hand
+            player2.hand = savedPlayer2Hand
+            player3.hand = savedPlayer3Hand
+            return player2
+
+        melds3, pair3 = player3.checkMelds(0)
+        if melds3 == 4 and pair3 == 1:
+            print("Player%d wins!" % player3.playerId)
+            player3.wins += 1
+
+            player1.hand = savedPlayer1Hand
+            player2.hand = savedPlayer2Hand
+            player3.hand = savedPlayer3Hand
+            return player3
+
+        # Put back the old hands
+        player1.hand = savedPlayer1Hand
+        player2.hand = savedPlayer2Hand
+        player3.hand = savedPlayer3Hand
+
+        return False
